@@ -19,17 +19,49 @@
                 <div class="row spaceWaster">space waster for style purposes .spacewaster</div>
             </div>
             <div class="person">
-                <video width="100%" height="100%" preload muted autoplay loop class="dude" src="../static/dude.mp4">
-                    <button class="visible">SAOUDHFODSIFGJDSFJISDJFJSDPFJPSDKJFKDSJKFJDS;F</button>
-                </video>
+                <div class="video-player">
+                <video width="100%" height="100%" preload muted autoplay loop class="dude" src="../static/dude.mp4"></video>
+                <div class="video-content">
+                    <button class="endGame" onclick="death()">end</button>
+                </div>    
+            </div>
             </div>
             <div class="events">
-                <div class="row score">score</div>
+                <div class="row score" id="score">10</div>
                 <div class="row event">events</div>
                 <div class="row points">score tracker</div>
             </div>
         </div>
+        <div class="deathScreen">
+            <p>you ded</p>
+            <input type="text" id="name">
+            <p>enter ya name</p>
+            <button class="done" onclick="endGame(`${document.getElementById('name').value}`)">done</button>
+        </div>
+        <div class="highScore">
+            <ul class="scoreList" id="scoreList">
+
+            </ul>
+        </div>
     </body>
     <script>
+        var score = 0
+        var jsonScores = '{}'
+        var jsonObj = JSON.parse(jsonScores)
+        $(".deathScreen").hide()
+        $(".highScore").hide()
+        function death(){
+            $('.wrapper').hide()
+            $(".deathScreen").show()
+            
+        }
+        function endGame(name){
+            $(".deathScreen").hide()
+            $(".highScore").show()
+            jsonObj.names = `${name}`
+            console.log(jsonObj)
+            var scoreList = document.getElementById("scoreList")
+            scoreList.insertAdjacentHTML( 'beforeend',"<li>" + jsonObj.names + " </li>");
+        }
     </script>
 </html>

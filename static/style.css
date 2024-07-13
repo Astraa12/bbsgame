@@ -67,18 +67,18 @@
     height: 50%;
 }
 .row{
-    margin: 0px;
+    margin: 10px;
 }
 .col{
-    padding: 0px;
+    margin: 40px;
 }
 .popup {
     display: none; 
     position: fixed;
-    top: 77%;
-    left: 47%;
+    top: 65%;
+    left: 40%;
     background-color: white;
-    padding: 20px;
+    padding: 5;
     border: 1px solid #ff0000;
 }
 .vertical {

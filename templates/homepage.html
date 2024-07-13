@@ -30,7 +30,7 @@
     <div class="popup">
         <div class="row">
             <div class="col">
-                <div class="vertical">
+                <div class="vertical" id="btnContainer">
                     <button id="btn1" class="btn btn-secondary">1</button>
                     <button id="btn2" class="btn btn-secondary">2</button>
                     <button id="btn3" class="btn btn-secondary">3</button>
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="vertical">
+                <div class="vertical" id="mtcContainer">
                     <button id="mtc1" class="btn btn-secondary">1</button>
                     <button id="mtc2" class="btn btn-secondary">2</button>
                     <button id="mtc3" class="btn btn-secondary">3</button>
@@ -53,20 +53,19 @@
             let score = 0; 
             let matches = 0;
 
-            
-
             $('#brainGameBTN').click(function() {
                 startBrainGame();
             });
 
             function startBrainGame() {
                 $(".popup").show();
+                shuffleButtons('#btnContainer');
+                shuffleButtons('#mtcContainer');
 
                 var selectedBtn = null; 
                 var selectedMtc = null; 
    
                 for (let i = 1; i <= 4; i++) {
-
                     $("#btn" + i).off('click').click(function() {
                         if (!$(this).hasClass('disabled')) {
                             selectedBtn = i;
@@ -74,7 +73,6 @@
                         }
                     });
 
-               
                     $("#mtc" + i).off('click').click(function() {
                         if (!$(this).hasClass('disabled')) {
                             selectedMtc = i;
@@ -91,12 +89,7 @@
                             matches++;
                             if (matches === 4) {
                                 $(".popup").hide();
-                                score = 0;
-                                matches = 0;
-                                        for (let i = 1; i <= 4; i++) {
-                                            $("#mtc" + i).removeClass('correct incorrect disabled').removeAttr('disabled').off('click');
-                                            $("#btn" + i).removeClass('correct incorrect disabled').removeAttr('disabled').off('click');
-                                        } 
+                                resetGame();
                             }
                         } else {
                             $("#mtc" + selectedMtc).addClass('incorrect');
@@ -104,19 +97,30 @@
                             score -= 5; 
                             console.log(score);
                             if (score == -15) {
-                                //Insert Game Over Function
-                                $(".popup").hide();
                                 console.log("game over");
-                                score = 0;
-                                matches = 0;
-                                    for (let i = 1; i <= 4; i++) {
-                                        $("#mtc" + i).removeClass('correct incorrect disabled').removeAttr('disabled').off('click');
-                                        $("#btn" + i).removeClass('correct incorrect disabled').removeAttr('disabled').off('click');
-                                    }
-                        }}
+                                $(".popup").hide();
+                                resetGame();
+                            }
+                        }
                         selectedBtn = null;
                         selectedMtc = null;
                     }
+                }
+
+                function resetGame() {
+                    score = 0;
+                    matches = 0;
+                    for (let i = 1; i <= 4; i++) {
+                        $("#mtc" + i).removeClass('correct incorrect disabled').removeAttr('disabled').off('click');
+                        $("#btn" + i).removeClass('correct incorrect disabled').removeAttr('disabled').off('click');
+                    }
+                }
+            }
+
+            function shuffleButtons(container) {
+                var buttons = $(container).children();
+                while (buttons.length) {
+                    $(container).append(buttons.splice(Math.floor(Math.random() * buttons.length), 1)[0]);
                 }
             }
         });

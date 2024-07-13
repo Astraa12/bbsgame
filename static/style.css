@@ -72,4 +72,34 @@
 .col{
     padding: 0px;
 }
+.popup {
+    display: none; 
+    position: fixed;
+    top: 77%;
+    left: 47%;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ff0000;
+}
+.vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#brainGameBTN {
+    position: absolute;
+    top: 10%; 
+    right: 45%; 
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ff0000;
+}
+.correct {
+    background-color: green !important;
+    color: white;
+}
+.incorrect {
+    background-color: red !important;
+    color: white;
+}
 

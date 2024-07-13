@@ -1,33 +1,107 @@
 <html>
-    <head>
-
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="../static/style.css">
-        <title>Organ Game</title>
-    </head>
-    <body>
-        <div class="wrapper">
-            <div class="meters">
-                <div class="row meter">
-                    <div class="col gasses">
-                        <div class="row o2"> oxygen bar </div>
-                        <div class="row co2"> co2 bar </div>
-                    </div>
-                    <div class="col heart"> heartbeat bar </div>
-                    </div>
-                <div class="row spaceWaster">space waster for style purposes</div>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Organ Game</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="meters">
+            <div class="row meter">
+                <div class="col gasses">
+                    <div class="row o2"> oxygen bar </div>
+                    <div class="row co2"> co2 bar </div>
+                </div>
+                <div class="col heart"> heartbeat bar </div>
             </div>
-            <div class="person">
-                <video width="100%" height="100%" preload muted autoplay loop class="dude" src="../static/dude.mp4"></video>
+            <div class="row spaceWaster">space waster for style purposes</div>
+        </div>
+        <div class="person">
+            <video width="100%" height="100%" preload muted autoplay loop class="dude" src="../static/dude.mp4"></video>
+            <button id="brainGameBTN" class="btn start">Click me for a challenge!</button>
+        </div>
+        <div class="events">
+            <div class="row score">score</div>
+            <div class="row event">events</div>
+            <div class="row points">score tracker</div>
+        </div>
+    </div>
+    <div class="popup">
+        <div class="row">
+            <div class="col">
+                <div class="vertical">
+                    <button id="btn1" class="btn btn-secondary">1</button>
+                    <button id="btn2" class="btn btn-secondary">2</button>
+                    <button id="btn3" class="btn btn-secondary">3</button>
+                    <button id="btn4" class="btn btn-secondary">4</button>
+                </div>
             </div>
-            <div class="events">
-                <div class="row score">score</div>
-                <div class="row event">events</div>
-                <div class="row points">score tracker</div>
+            <div class="col">
+                <div class="vertical">
+                    <button id="mtc1" class="btn btn-secondary">1</button>
+                    <button id="mtc2" class="btn btn-secondary">2</button>
+                    <button id="mtc3" class="btn btn-secondary">3</button>
+                    <button id="mtc4" class="btn btn-secondary">4</button>
+                </div>
             </div>
         </div>
-    </body>
+    </div>
+
     <script>
+        $(document).ready(function() {
+            let score = 0; 
+            let matches = 0;
+
+            $('#brainGameBTN').click(function() {
+                startBrainGame();
+            });
+
+            function startBrainGame() {
+                $(".popup").show();
+
+                var selectedBtn = null; 
+                var selectedMtc = null; 
+   
+                for (let i = 1; i <= 4; i++) {
+
+                    $("#btn" + i).off('click').click(function() {
+                        if (!$(this).hasClass('disabled')) {
+                            selectedBtn = i;
+                            checkMatch(); 
+                        }
+                    });
+
+               
+                    $("#mtc" + i).off('click').click(function() {
+                        if (!$(this).hasClass('disabled')) {
+                            selectedMtc = i;
+                            checkMatch(); 
+                        }
+                    });
+                }
+
+                function checkMatch() {
+                    if (selectedBtn !== null && selectedMtc !== null) {
+                        if (selectedBtn === selectedMtc) {
+                            $("#mtc" + selectedMtc).removeClass('incorrect').addClass('correct').addClass('disabled').attr('disabled', true);
+                            $("#btn" + selectedBtn).removeClass('incorrect').addClass('correct').addClass('disabled').attr('disabled', true);
+                            matches++;
+                            if (matches === 4) {
+                                $(".popup").hide(); 
+                            }
+                        } else {
+                            $("#mtc" + selectedMtc).addClass('incorrect');
+                            $("#btn" + selectedBtn).addClass('incorrect');
+                            score -= 5; 
+                            console.log(score);
+                        }
+                        selectedBtn = null;
+                        selectedMtc = null;
+                    }
+                }
+            }
+        });
     </script>
+</body>
 </html>

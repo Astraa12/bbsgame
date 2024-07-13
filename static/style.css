@@ -69,14 +69,21 @@
 .row{
     margin: 10px;
 }
-.col{
-    margin: 40px;
+.col+.col{
+    margin-left: 100px;
+}
+.video-player .video-content{
+    position: absolute;
+    bottom:0px;
+}
+.video-plaer .video{
+    position: absolute;
 }
 .popup {
     display: none; 
     position: fixed;
-    top: 65%;
-    left: 40%;
+    bottom: 0%;
+    left: 25%;
     background-color: white;
     padding: 5;
     border: 1px solid #ff0000;

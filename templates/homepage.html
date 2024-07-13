@@ -53,6 +53,8 @@
             let score = 0; 
             let matches = 0;
 
+            
+
             $('#brainGameBTN').click(function() {
                 startBrainGame();
             });
@@ -88,14 +90,30 @@
                             $("#btn" + selectedBtn).removeClass('incorrect').addClass('correct').addClass('disabled').attr('disabled', true);
                             matches++;
                             if (matches === 4) {
-                                $(".popup").hide(); 
+                                $(".popup").hide();
+                                score = 0;
+                                matches = 0;
+                                        for (let i = 1; i <= 4; i++) {
+                                            $("#mtc" + i).removeClass('correct incorrect disabled').removeAttr('disabled').off('click');
+                                            $("#btn" + i).removeClass('correct incorrect disabled').removeAttr('disabled').off('click');
+                                        } 
                             }
                         } else {
                             $("#mtc" + selectedMtc).addClass('incorrect');
                             $("#btn" + selectedBtn).addClass('incorrect');
                             score -= 5; 
                             console.log(score);
-                        }
+                            if (score == -15) {
+                                //Insert Game Over Function
+                                $(".popup").hide();
+                                console.log("game over");
+                                score = 0;
+                                matches = 0;
+                                    for (let i = 1; i <= 4; i++) {
+                                        $("#mtc" + i).removeClass('correct incorrect disabled').removeAttr('disabled').off('click');
+                                        $("#btn" + i).removeClass('correct incorrect disabled').removeAttr('disabled').off('click');
+                                    }
+                        }}
                         selectedBtn = null;
                         selectedMtc = null;
                     }

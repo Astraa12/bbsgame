@@ -1,33 +1,38 @@
+<!DOCTYPE html>
 <html>
-    <head>
-
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="../static/style.css">
-        <title>Organ Game</title>
-    </head>
-    <body>
-        <div class="wrapper">
-            <div class="meters">
-                <div class="row meter">
-                    <div class="col gasses">
-                        <div class="row o2"> oxygen bar .o2</div>
-                        <div class="row co2"> co2 bar .co2</div>
-                    </div>
-                    <div class="col heart"> heartbeat bar .heart</div>
-                    </div>
-                <div class="row spaceWaster">space waster for style purposes .spacewaster</div>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Organ Game</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="meters">
+            <div class="row meter">
+                <div class="col gasses">
+                    <div class="row o2"> oxygen bar .o2</div>
+                    <div class="row co2"> co2 bar .co2</div>
+                </div>
+                <div class="col heart"> heartbeat bar .heart</div>
             </div>
-            <div class="person">
-                <video width="100%" height="100%" preload muted autoplay loop class="dude" src="../static/dude.mp4"></video>
-            </div>
-            <div class="events">
-                <div class="row score">score</div>
-                <div class="row event">events</div>
-                <div class="row points">score tracker</div>
-            </div>
+            <div class="row spaceWaster">space waster for style purposes .spacewaster</div>
         </div>
-    </body>
-    <script>
-    </script>
+        <div class="person">
+            <video width="100%" height="100%" preload muted autoplay loop class="dude" src="../static/dude.mp4"></video>
+        </div>
+        <div class="events">
+            <div class="row score">score</div>
+            <div class="row event">
+                <div id="leg-task">
+                    <h3>Leg Task: Press 'A' and 'D' alternately</h3>
+                    <p id="speed">Speed: <span id="speed-text">-</span></p>
+                    <p id="result">Result: <span id="result-text">-</span></p>
+                </div>
+            </div>
+            <div class="row points">score tracker</div>
+        </div>
+    </div>
+    <script src="../static/main.js"></script>
+</body>
 </html>

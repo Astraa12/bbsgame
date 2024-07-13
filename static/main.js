@@ -1,52 +1,100 @@
-document.addEventListener('DOMContentLoaded', function () {
+$(document).ready(function() {
+    let progressBarWidth = 25;
+    let decayRate = 0.05;
+    let gameRunning = false;
+    let speed = generateRandomSpeed();
+    let score = 0;
+    let pointLoss = 10;
+    let aPress = false;
 
-    const speedElement = document.getElementById('speed-text');
-    const resultTextElement = document.getElementById('result-text');
+    function updateSpeedDisplay(speed) {
+        $('#currentSpeedDisplay').text(`Current Speed: ${speed}`);
+    }
 
-    const speeds = ['slow', 'medium', 'fast'];
-    let requiredSpeed = speeds[Math.floor(Math.random() * speeds.length)];
-    speedElement.textContent = requiredSpeed;
+    function updateProgressBar() {
+        let winner = false;
+        let tooSlow = false;
+        let temp = true;
+        progressBarWidth -= decayRate;
+        $('#keyPressProgressBar').css('width', `${progressBarWidth}%`);
 
-    let lastKeyPressTime = 0;
-    let keyPressCount = 0;
-    const keyPresses = [];
-    const requiredPressRate = {
-        slow: 1000,
-        medium: 500,
-        fast: 250
-    };
-
-    document.addEventListener('keydown', function (event) {
-        console.log(`Leg Task - Key pressed: ${event.key}`);
-        
-        if (event.key === 'a' || event.key === 'd') {
-            const currentTime = Date.now();
-
-            if (lastKeyPressTime) {
-                const timeDiff = currentTime - lastKeyPressTime;
-                keyPresses.push(timeDiff);
-
-                console.log(`Leg Task - Time difference: ${timeDiff}`);
-                console.log(`Leg Task - Key presses array: ${keyPresses}`);
-
-                if (keyPresses.length > 5) {
-                    keyPresses.shift(); // Keep only the last 5 key presses
-                }
-
-                const averagePressRate = keyPresses.reduce((a, b) => a + b) / keyPresses.length;
-                console.log(`Leg Task - Average press rate: ${averagePressRate}`);
-
-                if (averagePressRate <= requiredPressRate[requiredSpeed]) {
-                    resultTextElement.textContent = 'Correct speed!';
-                    resultTextElement.style.color = 'green';
+        if (gameRunning && progressBarWidth > 0) {
+            setTimeout(updateProgressBar, 1000/60);
+        } else  if (temp) {
+            if (speed == 'slow') {
+                if (progressBarWidth > 0 && progressBarWidth < 33) {
+                    winner = true;
                 } else {
-                    resultTextElement.textContent = 'Too slow!';
-                    resultTextElement.style.color = 'red';
+                    tooSlow = true;
+                }
+            } else if (speed == 'medium') {
+                if (progressBarWidth >= 33 && progressBarWidth < 66) {
+                    winner = true;
+                } else {
+                    tooSlow = true;
+                }
+            } else if (speed == 'fast') {
+                if (progressBarWidth >= 66 && progressBarWidth <= 100) {
+                    winner = true;
+                } else {
+                    tooSlow = true;
                 }
             }
+            
+            if (winner) {
+                console.log("You survived");
+                alert("You survived");
+                score += 10;
+            } else if (tooSlow) {
+                console.log("You were too slow. -" + pointLoss + " points");
+                alert("You were too slow. -" + pointLoss + " points");
+            } else {
+                console.log("You were too fast. You trip, -" + pointLoss + " points");
+                alert("You were too fast. You trip, -" + pointLoss + " points");
+            }
+            temp = false;
+            gameRunning = false;
+        }
+    }
 
-            lastKeyPressTime = currentTime;
-            keyPressCount++;
+    $("#legsGameButton").click(function() {
+        startLegsMiniGame();
+    });
+
+    function startLegsMiniGame() {
+        speed = generateRandomSpeed();
+        alert(`Welcome to the Legs Mini-Game!\nYour challenge: Click between 'A' and 'D' repeatedly at ${speed} speed.`);
+        progressBarWidth = 25;
+        updateSpeedDisplay(speed);
+        gameRunning = true;
+        updateProgressBar();
+        setTimeout(endGame, 5000);
+    }
+
+    function endGame() {
+        gameRunning = false;
+    }
+
+    function generateRandomSpeed() {
+        const speeds = ['slow', 'medium', 'fast'];
+        return speeds[Math.floor(Math.random() * speeds.length)];
+    }
+
+    $(document).on('keydown', function(event) {
+        
+        if (gameRunning) {
+            if (event.key === 'a' && aPress == false) {
+                aPress = true;
+                progressBarWidth += 10;
+                updateProgressBar();
+                updateSpeedDisplay(speed);
+            }
+            if (event.key == 'd' && aPress == true) {
+                aPress = false;
+                progressBarWidth += 10;
+                updateProgressBar();
+                updateSpeedDisplay(speed);
+            }
         }
     });
 });

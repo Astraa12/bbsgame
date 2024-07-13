@@ -1,60 +1,29 @@
 $(document).ready(function() {
-    let progressBarWidth = 25;
-    let decayRate = 0.05;
+    let progressBarWidth = 50;
+    let decayRate = 2;
     let gameRunning = false;
     let speed = generateRandomSpeed();
     let score = 0;
     let pointLoss = 10;
     let aPress = false;
+    let winner = false;
+
 
     function updateSpeedDisplay(speed) {
         $('#currentSpeedDisplay').text(`Current Speed: ${speed}`);
     }
 
-    function updateProgressBar() {
-        let winner = false;
-        let tooSlow = false;
-        let temp = true;
+    function naturalDecay() {
         progressBarWidth -= decayRate;
-        $('#keyPressProgressBar').css('width', `${progressBarWidth}%`);
+        updateProgressBar();
+    }
 
-        if (gameRunning && progressBarWidth > 0) {
-            setTimeout(updateProgressBar, 1000/60);
-        } else  if (temp) {
-            if (speed == 'slow') {
-                if (progressBarWidth > 0 && progressBarWidth < 33) {
-                    winner = true;
-                } else {
-                    tooSlow = true;
-                }
-            } else if (speed == 'medium') {
-                if (progressBarWidth >= 33 && progressBarWidth < 66) {
-                    winner = true;
-                } else {
-                    tooSlow = true;
-                }
-            } else if (speed == 'fast') {
-                if (progressBarWidth >= 66 && progressBarWidth <= 100) {
-                    winner = true;
-                } else {
-                    tooSlow = true;
-                }
-            }
-            
-            if (winner) {
-                console.log("You survived");
-                alert("You survived");
-                score += 10;
-            } else if (tooSlow) {
-                console.log("You were too slow. -" + pointLoss + " points");
-                alert("You were too slow. -" + pointLoss + " points");
-            } else {
-                console.log("You were too fast. You trip, -" + pointLoss + " points");
-                alert("You were too fast. You trip, -" + pointLoss + " points");
-            }
-            temp = false;
-            gameRunning = false;
+    function updateProgressBar() {
+        if (gameRunning && progressBarWidth < 0 ) {
+            clearTimeout(timer);
+            endGame();
         }
+        $('#keyPressProgressBar').css('width', `${progressBarWidth}%`);
     }
 
     $("#legsGameButton").click(function() {
@@ -64,15 +33,62 @@ $(document).ready(function() {
     function startLegsMiniGame() {
         speed = generateRandomSpeed();
         alert(`Welcome to the Legs Mini-Game!\nYour challenge: Click between 'A' and 'D' repeatedly at ${speed} speed.`);
-        progressBarWidth = 25;
+        progressBarWidth = 50;
         updateSpeedDisplay(speed);
         gameRunning = true;
         updateProgressBar();
-        setTimeout(endGame, 5000);
+        decayInterval = setInterval(naturalDecay, 50);
+        timer = setTimeout(endGame, 5000);
+        
     }
 
     function endGame() {
         gameRunning = false;
+        clearInterval(decayInterval);
+        updateProgressBar();
+        setTimeout(temp, 300);
+        
+    }
+
+    function temp() {
+        let tooSlow = false;
+        if (speed == 'slow') {
+            if (progressBarWidth > 0) {
+                if (progressBarWidth < 33) {
+                    winner = true;
+                }
+            } else {
+                tooSlow = true;
+            }
+        } else if (speed == 'medium') {
+            if (progressBarWidth >= 33) {
+                if (progressBarWidth < 66) {
+                    winner = true;
+                }
+            } else {
+                tooSlow = true;
+            }
+        } else if (speed == 'fast') {
+            if (progressBarWidth >= 66 ) {
+                if (progressBarWidth <= 100) {
+                    winner = true;
+                }
+            } else {
+                tooSlow = true;
+            }
+        }
+        
+        if (winner) {
+            alert("You survived");
+            score += 10;
+        } else if (tooSlow) {
+            alert("You were too slow. -" + pointLoss + " points");
+            score -= pointLoss;
+        } else {
+            alert("You were too fast. You trip, -" + pointLoss + " points");
+            score -= pointLoss;
+        }
+        console.log(progressBarWidth);
     }
 
     function generateRandomSpeed() {

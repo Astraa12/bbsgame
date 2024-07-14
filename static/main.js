@@ -1,9 +1,8 @@
-$(document).ready(function() {
+
     let progressBarWidth = 50;
     let decayRate = 2;
     let gameRunning = false;
     let speed = generateRandomSpeed();
-    let score = 0;
     let pointLoss = 10;
     let aPress = false;
     let winner = false;
@@ -32,7 +31,7 @@ $(document).ready(function() {
 
     function startLegsMiniGame() {
         speed = generateRandomSpeed();
-        alert(`Welcome to the Legs Mini-Game!\nYour challenge: Click between 'A' and 'D' repeatedly at ${speed} speed.`);
+        
         progressBarWidth = 50;
         updateSpeedDisplay(speed);
         gameRunning = true;
@@ -79,13 +78,13 @@ $(document).ready(function() {
         }
         
         if (winner) {
-            alert("You survived");
+
             score += 10;
         } else if (tooSlow) {
-            alert("You were too slow. -" + pointLoss + " points");
+
             score -= pointLoss;
         } else {
-            alert("You were too fast. You trip, -" + pointLoss + " points");
+
             score -= pointLoss;
         }
         console.log(progressBarWidth);
@@ -113,4 +112,3 @@ $(document).ready(function() {
             }
         }
     });
-});

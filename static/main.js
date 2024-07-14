@@ -74,6 +74,7 @@
                 }
             } else {
                 tooSlow = true;
+                gameOver("You tripped and died!", score)
             }
         }
         

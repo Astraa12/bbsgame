@@ -57,9 +57,16 @@
             </div>
         </div>
     </div>
+    <div class = "gameOver">
+        <p>GAME</p>
+        <p>OVER</p>
+        <p><a class="cause"></a></p>
+        <p>Score:<a id="score"></a></p>
+        <button id="confirm">Confirm</button>
+    </div>
     <script src="../static/main.js"></script>
     <script>
-
+        $(".gameOver").hide()
             score = 0; 
             let matches = 0;
             $('#brainGameBTN').click(function() {
@@ -106,7 +113,7 @@
                             score -= 5; 
                             console.log(score);
                             if (score == -15) {
-                                console.log("game over");
+                                gameOver("You had a stroke and died!", score)
                                 $(".popup").hide();
                                 resetGame();
                             }
@@ -150,6 +157,13 @@
         setTimeout(getEvent, 5000)
         setTimeout(getEvent, 15000)
 // end of get event
+// alex game over
+        function gameOver(cod, lastScore){
+            $(".wrapper").hide()
+            $('.gameOver').show()
+            $('.cause').append(`${cod}`)
+            $('#score').append(`${lastScore}`)
+        }
     </script>
 
 </body>

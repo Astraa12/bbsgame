@@ -6,58 +6,58 @@
 .meters{
     width: 25%;
     height: auto;
-    outline: 1px solid black;
+
 }
 
 .person{
     width: 50%;
     height: auto;
-    outline: 1px solid black;
+
 }
 
 .events{
     width: 25%;
     height: auto;
-    outline: 1px solid black;
+
 }
 
 .score{
-    outline: 1px solid black;
+
     width: auto;
     height: 10%;
 }
 .event{
-    outline: 1px solid black;
+
     width: auto;
     height: 45%;
 }
 .points{
-    outline: 1px solid black;
+
     width: auto;
     height: 45%;
 }
 .meter{
-    outline: 1px solid black;
+
     height: 60%;
     width: auto;
 }
 .gasses{
-    outline: 1px solid black;
+
     height: auto;
     width: 50%;
 }
 .heart{
-    outline: 1px solid black;
+
     height: auto;
     width: 50%;
 }
 .spaceWaster{
-    outline: 1px solid black;
+
     height: 40%;
     width: auto;
 }
 .o2{
-    outline: 1px solid black;
+
     width: auto;
     height: 50%;
 }
@@ -79,7 +79,7 @@
 }
 
 .co2{
-    outline: 1px solid black;
+
     width: auto;
     height: 50%;
 }

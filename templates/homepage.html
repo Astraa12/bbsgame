@@ -77,11 +77,37 @@
     <script src="../static/main.js"></script>
     <script>
         $(".gameOver").hide()
-            score = 0; 
+            let score = 0; 
             let matches = 0;
-            $('#brainGameBTN').click(function() {
-                startBrainGame();
-            });
+            let count = 0;
+            let start = false; 
+            let counterInterval;
+
+            function resetGame() {
+                    score = 0;
+                    matches = 0;
+                    for (let i = 1; i <= 4; i++) {
+                        $("#mtc" + i).removeClass('correct incorrect disabled').removeAttr('disabled').off('click');
+                        $("#btn" + i).removeClass('correct incorrect disabled').removeAttr('disabled').off('click');
+                    }
+            }
+
+            function startCounter() {
+                count = 0;
+                counterInterval = setInterval(function() {
+                    if (start) {
+                        count++;
+                        console.log(count);
+                        if (count >= 15) {
+                            gameOver("You had a stroke and died!", score);
+                            $(".popup").hide();
+                            resetGame();
+                            start = false;
+                            clearInterval(counterInterval);
+                        }
+                    }
+                }, 1000); 
+            }
 
             function startBrainGame() {
                 $(".popup").show();
@@ -90,7 +116,8 @@
 
                 var selectedBtn = null; 
                 var selectedMtc = null; 
-   
+                start = true;
+                startCounter();
                 for (let i = 1; i <= 4; i++) {
                     $("#btn" + i).off('click').click(function() {
                         if (!$(this).hasClass('disabled')) {
@@ -107,7 +134,10 @@
                     });
                 }
 
+                
+
                 function checkMatch() {
+                    
                     if (selectedBtn !== null && selectedMtc !== null) {
                         if (selectedBtn === selectedMtc) {
                             $("#mtc" + selectedMtc).removeClass('incorrect').addClass('correct').addClass('disabled').attr('disabled', true);
@@ -116,16 +146,19 @@
                             if (matches === 4) {
                                 $(".popup").hide();
                                 resetGame();
+                                start=false;
+                                clearInterval(counterInterval);
                             }
                         } else {
                             $("#mtc" + selectedMtc).addClass('incorrect');
                             $("#btn" + selectedBtn).addClass('incorrect');
                             score -= 5; 
                             console.log(score);
-                            if (score == -15) {
+                            if (score == -15||count==15) {
                                 gameOver("You had a stroke and died!", score)
                                 $(".popup").hide();
-                                resetGame();
+                                start=false;
+                                clearInterval(counterInterval);
                             }
                         }
                         selectedBtn = null;
@@ -244,6 +277,7 @@
             eventNum = getRand(2)
             if (eventNum == 0){
                 startBrainGame();
+                start=true
             }
             else if (eventNum == 1){
                 startLegsMiniGame();

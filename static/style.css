@@ -72,6 +72,20 @@
 .col{
     padding: 0px;
 }
+
+.progress {
+    height: 20px; 
+    background-color: #f1f1f1; 
+    border-radius: 4px; 
+    overflow: hidden; 
+    margin-top: 10px; 
+}
+
+.progress-bar {
+    background-color: #007bff; 
+    width: 0%; 
+    height: 100%; 
+}
 .video-player .video-content{
     position: absolute;
     bottom:0px;
@@ -106,5 +120,6 @@
 .incorrect {
     background-color: red !important;
     color: white;
+
 }
 

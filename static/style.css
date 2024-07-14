@@ -1,0 +1,104 @@
+.wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+.meters{
+    width: 25%;
+    height: auto;
+    outline: 1px solid black;
+}
+
+.person{
+    width: 50%;
+    height: auto;
+    outline: 1px solid black;
+}
+
+.events{
+    width: 25%;
+    height: auto;
+    outline: 1px solid black;
+}
+
+.score{
+    outline: 1px solid black;
+    width: auto;
+    height: 10%;
+}
+.event{
+    outline: 1px solid black;
+    width: auto;
+    height: 45%;
+}
+.points{
+    outline: 1px solid black;
+    width: auto;
+    height: 45%;
+}
+.meter{
+    outline: 1px solid black;
+    height: 60%;
+    width: auto;
+}
+.gasses{
+    outline: 1px solid black;
+    height: auto;
+    width: 50%;
+}
+.heart{
+    outline: 1px solid black;
+    height: auto;
+    width: 50%;
+}
+.spaceWaster{
+    outline: 1px solid black;
+    height: 40%;
+    width: auto;
+}
+.o2{
+    outline: 1px solid black;
+    width: auto;
+    height: 50%;
+}
+.o2BarContainer{
+    outline: 1px solid black;
+    height: 80%;
+    width: 40%;
+    margin-left: 27%;
+}
+.o2ContainerImage{
+    background-color: transparent;
+}
+.o2BarBlankSpace{
+    position: absolute;
+    height: 40%;
+    width:40%;
+    background: rgb(0, 8, 255);
+}
+.co2{
+    outline: 1px solid black;
+    width: auto;
+    height: 50%;
+}
+.co2BarContainer{
+    outline: 1px solid black;
+    height: 80%;
+    width: 40%;
+    margin-left: 27%;
+}
+.co2BarBlankSpace{
+
+    position: absolute;
+    height: 40%;
+    width: 40%;
+    /* top: or bottom: %*/
+    background: rgb(22, 111, 255);
+}
+.row{
+    margin: 0px;
+}
+.col{
+    padding: 0px;
+}
+

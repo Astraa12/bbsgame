@@ -170,6 +170,14 @@
     bottom: 15.75%;
     height:50%;
     width:40%;
-    background: red;
+    background: rgb(255, 0, 0);
 
+}
+
+body{
+    background-image: url("bgrnd.png");
+}
+p{
+    color: white;
+    outline: black solid 1px;
 }

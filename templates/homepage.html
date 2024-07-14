@@ -24,7 +24,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="col heart"> heartbeat bar .heart</div>
+                <div class="col heart"> heartbeat bar .heart
+                    <div class ="heartBarContainer">  
+                        <div class = "heartBarInside"> 
+
+                        </div>
+                    </div>
+                </div>
                 </div>
             <div class="row spaceWaster">space waster for style purposes .spacewaster</div>
         </div>
@@ -268,6 +274,75 @@
         o2BarLogic()
         co2BarLogic()
         breather()
+        heartBar = 50.0; //hiiiiii alex :3333 
+        //heart bar is just what i set the height to :3333 <3
+        heartBarDecrease = 0.25
+        delay = 20
+        heartBarIncrease = 10
+        // use ((1000*heartGaugeDecrease)/(delay))
+        // this equation is so that the player is having a heartbeat at roughly 60 bpm at resting
+
+        //These are the punishment barriers for if you lose points or not
+        heartUpperBounds = 70
+        heartLowerBounds = 30
+
+        function heartChecker(){
+            if(heartBar>heartUpperBounds){
+                //scoreLoss("Heartbeat too high")
+                console.log("Heartbeat too high")
+            }
+            else if (heartBar<heartLowerBounds){
+                //scoreLoss("Heartbeat too low")
+                console.log("Heartbeat too low")
+            }
+            setTimeout(() => {heartChecker()}, 500)
+        }
+
+
+        //initializes the heartbar to what we want it to be
+        $(".heartBarInside").css({
+                "height": heartBar + '%'
+            })
+
+        
+        //constantly subtracts from heartbar
+        function heartBarLogic(){
+            //put the checker function here 
+
+            heartBar -= heartBarDecrease
+            $(".heartBarInside").css({
+                "height": heartBar + '%'
+            })
+            if(heartBar <= 0){
+                //gameOver("Heart Stopped Beating!")
+                console.log("Heart Stopped Beating!")
+            }
+
+            setTimeout(() => {heartBarLogic()}, delay)
+        }
+
+        //this function is the space bar to have a heart beat situation
+        function heartBarIncreaser(){
+            heartBar += heartBarIncrease
+            if(heartBar>100){
+                //gameOver("Heart Attack!")
+                console.log("Heart Attack!")
+            }
+        }
+
+
+
+
+        //initializes the stuff that will be looping forever
+        heartBarLogic()
+        heartChecker()
+
+        //key checker
+        document.addEventListener('keydown', function(event){
+            if(event.keyCode == 32){
+                heartBarIncreaser()
+            }
+        });
         //alex get event
         function getRand(max) {
   return Math.floor(Math.random() * max);

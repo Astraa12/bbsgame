@@ -17,7 +17,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row co2"> CO2 Meter (PRESS D!)
+                    <div class="row co2 mt-3"> CO2 Meter (PRESS D!)
                         <div class="co2BarContainer"> 
                             <div class="co2BarBlankSpace">
                             </div>
@@ -39,18 +39,22 @@
 
         </div>
         <div class="events">
-            <div class="row score">score</div>
+            <div class="row score"><a class="liveScoreTracker"></a></div>
             <div class="row event">
           <div id="leg-task">
                     <div class="progress">
                         <div id="keyPressProgressBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>                    
-                    <h3>Leg Task: Press 'A' and 'D' alternately</h3>
+                    <h3>Leg Task: Press 'J' and 'L' alternately</h3>
                     <span id="currentSpeedDisplay" class="current-speed"></span>
                     <p id="result">Result: <span id="result-text">-</span></p>
               </div>
           </div>
-            <div class="row points"></div>
+            <div class="row points">Point Tracker
+                <ul class="eventList">
+
+                </ul>
+            </div>
         </div>
     </div>
     <div class="popup">
@@ -87,6 +91,8 @@
             let count = 0;
             let start = false; 
             let counterInterval;
+            let idNum = 0
+            let gameEnd = 0
 
             function resetGame() {
                     score = 0;
@@ -104,7 +110,10 @@
                         count++;
                         console.log(count);
                         if (count >= 15) {
+                            if(gameEnd==0){
+                                score -= 100
                             gameOver("You had a stroke and died!", score);
+                            }
                             $(".popup").hide();
                             resetGame();
                             start = false;
@@ -148,6 +157,7 @@
                             $("#mtc" + selectedMtc).removeClass('incorrect').addClass('correct').addClass('disabled').attr('disabled', true);
                             $("#btn" + selectedBtn).removeClass('incorrect').addClass('correct').addClass('disabled').attr('disabled', true);
                             matches++;
+                            score += 5
                             if (matches === 4) {
                                 $(".popup").hide();
                                 resetGame();
@@ -160,6 +170,7 @@
                             score -= 5; 
                             console.log(score);
                             if (score == -15||count==15) {
+                                score -=
                                 gameOver("You had a stroke and died!", score)
                                 $(".popup").hide();
                                 start=false;
@@ -208,38 +219,43 @@
         
         function o2BarLogic(){
             //put the checker function here 
-
+            if(gameEnd==0){
             o2BarBlankSpace += o2BarDecrease
             $(".o2BarBlankSpace").css({
                 "height": o2BarBlankSpace + '%'
             })
             if(o2BarBlankSpace >= 40){
-                //gameOver("Breathing Stopped!")
+                score -= 100
+                gameOver("Breathing Stopped!", score)
                 console.log("Breathing Stopped!")
             }
 
             setTimeout(() => {o2BarLogic()}, o2delay)
         }
+        }
 
 
         function co2BarLogic(){
             //put the checker function here 
-
+            if(gameEnd == 0){
             co2BarBlankSpace -= o2BarDecrease
             $(".co2BarBlankSpace").css({
                 "height": co2BarBlankSpace + '%'
             })
             if(co2BarBlankSpace <= 0){
-                //gameOver("Too much CO2!")
+                score -= 100
+                gameOver("Too much CO2!", score)
                 console.log("Too much CO2!")
             }
 
             setTimeout(() => {co2BarLogic()}, o2delay)
         }
+        }
         
         //direction can be 1 (meaning inhale), 0 (meaning no inhalation at all), 
         //or -1 (indicating exhalation)
         function breather(){
+            if(gameEnd == 0){
             if(breathingDirection != 0){
                 if(breathingDirection==1){
                 o2BarBlankSpace -= breathBarIncrease}
@@ -250,6 +266,7 @@
                 }
             }
             setTimeout(() => {breather()}, 20)
+        }
         }
 
 
@@ -286,15 +303,17 @@
         heartLowerBounds = 30
 
         function heartChecker(){
+            if(gameEnd == 0){
             if(heartBar>heartUpperBounds){
-                //scoreLoss("Heartbeat too high")
+                score -= 1
                 console.log("Heartbeat too high")
             }
             else if (heartBar<heartLowerBounds){
-                //scoreLoss("Heartbeat too low")
+                score -= 1
                 console.log("Heartbeat too low")
             }
             setTimeout(() => {heartChecker()}, 500)
+        }
         }
 
 
@@ -307,28 +326,32 @@
         //constantly subtracts from heartbar
         function heartBarLogic(){
             //put the checker function here 
-
+            if(gameEnd==0){
             heartBar -= heartBarDecrease
             $(".heartBarInside").css({
                 "height": heartBar + '%'
             })
             if(heartBar <= 0){
-                //gameOver("Heart Stopped Beating!")
+                score -= 100
+                gameOver("Heart Stopped Beating!", score)
                 console.log("Heart Stopped Beating!")
             }
 
             setTimeout(() => {heartBarLogic()}, delay)
         }
+        }
 
         //this function is the space bar to have a heart beat situation
         function heartBarIncreaser(){
+            if(gameEnd==0){
             heartBar += heartBarIncrease
             if(heartBar>100){
-                //gameOver("Heart Attack!")
+                score -= 100
+                gameOver("Heart Attack!", score)
                 console.log("Heart Attack!")
             }
         }
-
+    }
 
 
 
@@ -357,15 +380,35 @@
                 startLegsMiniGame();
             }
         }
-        setTimeout(getEvent, 5000)
-        setTimeout(getEvent, 15000)
+        function gameEvent(){
+            if(gameEnd==0){
+            getEvent()
+            setTimeout(gameEvent, 10000)
+            }
+        }
+        
+        setTimeout(gameEvent, 5000)
 // end of get event
 // alex game over
         function gameOver(cod, lastScore){
+            gameEnd = gameEnd + 1
             $(".wrapper").hide()
             $('.gameOver').show()
             $('.cause').append(`${cod}`)
             $('#score').append(`${lastScore}`)
+        }
+        //end of game over
+        //alex start score update
+        function checkScoreLength(){
+            if(idNum == 3){
+                idNum = 0
+            } else {
+                updateScore(idNum)
+                idNum = idNum + 1
+            }
+        }
+        function updateScore(idNum){
+            
         }
     </script>
 

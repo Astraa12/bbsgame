@@ -18,11 +18,14 @@
     }
 
     function updateProgressBar() {
-        if (gameRunning && progressBarWidth < 0 ) {
+        if(gameEnd == 0){
+        if (gameRunning && progressBarWidth < 0 || gameRunning && progressBarWidth > 100) {
             clearTimeout(timer);
-            endGame();
+            score -= 100
+            gameOver("You tripped and died!", score)
         }
         $('#keyPressProgressBar').css('width', `${progressBarWidth}%`);
+    }
     }
 
     $("#legsGameButton").click(function() {
@@ -74,7 +77,8 @@
                 }
             } else {
                 tooSlow = true;
-                gameOver("You tripped and died!", score)
+                score -= 30
+                
             }
         }
         
@@ -99,13 +103,13 @@
     $(document).on('keydown', function(event) {
         
         if (gameRunning) {
-            if (event.key === 'a' && aPress == false) {
+            if (event.key === 'j' && aPress == false) {
                 aPress = true;
                 progressBarWidth += 10;
                 updateProgressBar();
                 updateSpeedDisplay(speed);
             }
-            if (event.key == 'd' && aPress == true) {
+            if (event.key == 'l' && aPress == true) {
                 aPress = false;
                 progressBarWidth += 10;
                 updateProgressBar();

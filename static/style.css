@@ -51,6 +51,25 @@
     height: auto;
     width: 50%;
 }
+
+.heartBarContainer{
+    outline: 1px solid black;
+    height: 80%;
+    width: 40%;
+    margin-inline: auto;
+}
+.heartBarInside{
+    position: absolute;
+    /*please for the love of all things good ignore this next line it works 
+    ik its not robust but it works. ily alex*/
+    bottom: 15.75%;
+    height:50%;
+    width:40%;
+    background: red;
+
+}
+
+
 .spaceWaster{
     outline: 1px solid black;
     height: 40%;
@@ -61,6 +80,7 @@
     width: auto;
     height: 50%;
 }
+
 
 .o2BarContainer{
     outline: 1px solid black;
@@ -78,11 +98,13 @@
     background: rgb(0, 8, 255);
 }
 
+
 .co2{
     outline: 1px solid black;
     width: auto;
     height: 50%;
 }
+
 
 .co2BarContainer{
     outline: 1px solid black;
@@ -99,12 +121,14 @@
     background: rgb(22, 111, 255);
 }
 
+
 .row{
     margin: 0px;
 }
 .col{
     padding: 0px;
 }
+
 
 
 .progress {
@@ -156,4 +180,5 @@
     color: white;
 
 }
+
 

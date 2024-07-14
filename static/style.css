@@ -61,17 +61,51 @@
     width: auto;
     height: 50%;
 }
+
+.o2BarContainer{
+    outline: 1px solid black;
+    height: 80%;
+    width: 40%;
+    margin-left: 27%;
+}
+.o2ContainerImage{
+    background-color: transparent;
+}
+.o2BarBlankSpace{
+    position: absolute;
+    height: 40%;
+    width:40%;
+    background: rgb(0, 8, 255);
+}
+
 .co2{
     outline: 1px solid black;
     width: auto;
     height: 50%;
 }
+
+.co2BarContainer{
+    outline: 1px solid black;
+    height: 80%;
+    width: 40%;
+    margin-left: 27%;
+}
+.co2BarBlankSpace{
+
+    position: absolute;
+    height: 40%;
+    width: 40%;
+    /* top: or bottom: %*/
+    background: rgb(22, 111, 255);
+}
+
 .row{
     margin: 0px;
 }
 .col{
     padding: 0px;
 }
+
 
 .progress {
     height: 20px; 

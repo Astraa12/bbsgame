@@ -1,3 +1,50 @@
+
+<html>
+    <head>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="../static/style.css">
+        <title>Organ Game</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="meters">
+                <div class="row meter">
+                    <div class="col gasses">
+                        <div class="row o2"> oxygen bar .o2
+                            <div class="o2BarContainer"> 
+                                <div class="o2BarBlankSpace">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row co2"> co2 bar .co2
+                            <div class="co2BarContainer"> 
+                                <div class="co2BarBlankSpace">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col heart"> heartbeat bar .heart</div>
+                    </div>
+                <div class="row spaceWaster">space waster for style purposes .spacewaster</div>
+            </div>
+            <div class="person">
+                <video width="100%" height="100%" preload muted autoplay loop class="dude" src="../static/dude.mp4"></video>
+            </div>
+            <div class="events">
+                <div class="row score">score</div>
+                <div class="row event">events</div>
+                <div class="row points">score tracker</div>
+            </div>
+        </div>
+    </body>
+    <script>
+        
+
+    </script>
+</html>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -139,7 +186,92 @@
                     $(container).append(buttons.splice(Math.floor(Math.random() * buttons.length), 1)[0]);
                 }
             }
+        o2BarBlankSpace = 0;
+        o2BarDecrease = 0.13;
+        o2delay = 20
+        breathBarIncrease = 0.36;
+        breathingDirection = 0;
 
+        co2BarBlankSpace = 40;
+        co2BarIncrease = 0.25;
+        co2BarDecrease = 0.36;
+
+
+        //max bound 40, min bound 0 for oxygen bar and co2 bar
+
+        //initializes the o2bar to what we want it to be
+        
+        $(".o2BarBlankSpace").css({
+                "height": o2BarBlankSpace + '%'
+            })
+        
+        function o2BarLogic(){
+            //put the checker function here 
+
+            o2BarBlankSpace += o2BarDecrease
+            $(".o2BarBlankSpace").css({
+                "height": o2BarBlankSpace + '%'
+            })
+            if(o2BarBlankSpace >= 40){
+                //gameOver("Breathing Stopped!")
+                console.log("Breathing Stopped!")
+            }
+
+            setTimeout(() => {o2BarLogic()}, o2delay)
+        }
+
+
+        function co2BarLogic(){
+            //put the checker function here 
+
+            co2BarBlankSpace -= o2BarDecrease
+            $(".co2BarBlankSpace").css({
+                "height": co2BarBlankSpace + '%'
+            })
+            if(co2BarBlankSpace <= 0){
+                //gameOver("Too much CO2!")
+                console.log("Too much CO2!")
+            }
+
+            setTimeout(() => {co2BarLogic()}, o2delay)
+        }
+        
+        //direction can be 1 (meaning inhale), 0 (meaning no inhalation at all), 
+        //or -1 (indicating exhalation)
+        function breather(){
+            if(breathingDirection != 0){
+                if(breathingDirection==1){
+                o2BarBlankSpace -= breathBarIncrease}
+                else if(breathingDirection==-1){
+                co2BarBlankSpace += breathBarIncrease}
+                if(o2BarBlankSpace<0){
+                    o2BarBlankSpace = 0
+                }
+            }
+            setTimeout(() => {breather()}, 20)
+        }
+
+
+        document.addEventListener('keyup', function(event){
+            if(event.keyCode == 65){
+                breathingDirection = 0;
+            }
+            if(event.keyCode == 68){
+                breathingDirection = 0;
+            }
+        });
+        document.addEventListener('keydown', function(event){
+            if(event.keyCode == 65){
+                breathingDirection = 1;
+            }
+            if(event.keyCode == 68){
+                breathingDirection = -1;
+            }
+        });
+
+        o2BarLogic()
+        co2BarLogic()
+        breather()
         //alex get event
         function getRand(max) {
   return Math.floor(Math.random() * max);
@@ -168,3 +300,4 @@
 
 </body>
 </html>
+

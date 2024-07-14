@@ -51,6 +51,7 @@
     height: auto;
     width: 50%;
 }
+
 .heartBarContainer{
     outline: 1px solid black;
     height: 80%;
@@ -67,6 +68,8 @@
     background: red;
 
 }
+
+
 .spaceWaster{
     outline: 1px solid black;
     height: 40%;
@@ -77,15 +80,105 @@
     width: auto;
     height: 50%;
 }
+
+
+.o2BarContainer{
+    outline: 1px solid black;
+    height: 80%;
+    width: 40%;
+    margin-left: 27%;
+}
+.o2ContainerImage{
+    background-color: transparent;
+}
+.o2BarBlankSpace{
+    position: absolute;
+    height: 40%;
+    width:40%;
+    background: rgb(0, 8, 255);
+}
+
+
 .co2{
     outline: 1px solid black;
     width: auto;
     height: 50%;
 }
+
+
+.co2BarContainer{
+    outline: 1px solid black;
+    height: 80%;
+    width: 40%;
+    margin-left: 27%;
+}
+.co2BarBlankSpace{
+
+    position: absolute;
+    height: 40%;
+    width: 40%;
+    /* top: or bottom: %*/
+    background: rgb(22, 111, 255);
+}
+
+
 .row{
     margin: 0px;
 }
 .col{
     padding: 0px;
 }
+
+
+
+.progress {
+    height: 20px; 
+    background-color: #f1f1f1; 
+    border-radius: 4px; 
+    overflow: hidden; 
+    margin-top: 10px; 
+}
+
+.progress-bar {
+    background-color: #007bff; 
+    width: 0%; 
+    height: 100%; 
+}
+.video-player .video-content{
+    position: absolute;
+    bottom:0px;
+}
+.video-plaer .video{
+    position: absolute;
+}
+.popup {
+    display: none; 
+    position: fixed;
+    bottom: 0%;
+    left: 25%;
+    background-color: white;
+    border: 1px solid #ff0000;
+}
+.vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#brainGameBTN {
+    position: absolute;
+    top: 10%; 
+    right: 45%; 
+    background-color: white;
+    border: 1px solid #ff0000;
+}
+.correct {
+    background-color: green !important;
+    color: white;
+}
+.incorrect {
+    background-color: red !important;
+    color: white;
+
+}
+
 
